@@ -1,0 +1,14 @@
+.banner{
+    background: #000;
+    padding: 15px 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.data-box{
+    border: 1px solid rgba(118,118,118,.14)!important;
+    padding: 30px 40px;
+    margin-bottom: 20px;
+}
+.sl-no{
+    color: #179a94;
+}

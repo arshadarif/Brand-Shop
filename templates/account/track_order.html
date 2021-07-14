@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>View Orders | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+<link rel="stylesheet" href="{% static 'css/account/track_order.css' %}">
+{% endblock %}
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">MY ACCOUNT</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"><i class="fas fa-home"></i> Home</a> / My Account
+    </div>
+</div>
+<div class="container-fluid px-sm-5 px-2 py-sm-5 py-1 mb-4 primary-font">
+    <div class="row">
+        <div class="col-lg-4 col-12 px-0 mb-lg-0 mb-4">
+            <ul class="dash-ul px-0 px-lg-3">
+                <li class="text-center dash-head weight-four">MY ACCOUNT</li>
+                <a href="{% url 'account:account' %}" class="d-block size-four web-link-two"><li>DASHBOARD</li></a>
+                <a href="{% url 'account:orders' %}" class="d-block active size-four web-link-two"><li>ORDERS</li></a>
+                <a href="{% url 'account:address' %}" class="d-block size-four web-link-two"><li>ADDRESSES</li></a>
+                <a href="{% url 'account:ac_detail' %}" class="d-block size-four web-link-two"><li>ACCOUNT DETAILS</li></a>
+                <a href="{% url 'store:wishlist' %}" class="d-block size-four web-link-two"><li>WISHLIST</li></a>
+                <a href="{% url 'account:logout' %}" class="d-block size-four web-link-two"><li>LOGOUT</li></a>
+            </ul>
+        </div>
+        <div class="col-lg-8 col-12 px-lg-5 px-0 align-items-start">
+            <div class="info px-4 mb-3 py-3 size-one" style="height: fit-content;">
+                Order #{{ order.id }} was placed on {{ order.checkout_date }}
+            </div>
+            <p class="px-4 mb-5" style="color:#000"> Order status : <strong>{{ order.get_status_display }}</strong>.</p>
+            {% if order.status == 'CO' %}
+            <a href="{% url 'account:return' order.id %}" class="web-link tirtiary-outline-btn px-3 text-center" style="height: fit-content;">Return</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

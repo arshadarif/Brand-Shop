@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Cart | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">CART</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"><i class="fas fa-home"></i> Home</a> / Cart
+    </div>
+</div>
+<div class="container-lg container-fluid primary-font mb-4" style="color: #000;">
+    {% if cart_items %}
+    <table class="mx-auto cart-table mb-5 w-100 d-md-table d-none">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>PRODUCT</th>
+                <th>PRICE</th>
+                <th>QUANTITY</th>
+                <th>SUBTOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td class="text-center delete-cartitem size-one mb-3" data-id="{{ item.product.id }}"><i style="cursor:pointer;" class="far fa-trash-alt"></i></td>
+                <td><img src="{{ item.product.imageURL }}" alt="img" width="70"></td>
+                <td>{{ item.product.product_name }}</td>
+                <td>&#8377;{{ item.product.product_price }}</td>
+                <td>
+                    <div class="qty">
+                        <button class="decrease change-qty" data-item="{{ item.product.id }}" data-action="substract">-</button>
+                        <input type="text" class="qty-display" value="{{ item.qty }}" disabled>
+                        <button class="increase change-qty" data-action="add" data-item="{{ item.product.id }}">+</button>
+                    </div>
+                </td>
+                <td class="weight-five item-subtotal" style="font-size: 20px;">&#8377;{{ item.get_subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="mx-auto d-md-none d-table cart-phone-table mb-5 w-100">
+        {% for item in cart_items %}
+        <tr class="row justify-content-between px-3">
+            <th class="text-center delete-cartitem col-1 size-one mb-3" data-id="{{ item.product.id }}"><i style="cursor:pointer;" class="far fa-trash-alt"></i></th>
+            <th class="col-11"><img src="{{ item.product.imageURL }}" alt="img" width="70"></th>
+            <td class="col-6 px-0">PRODUCT:</td>
+            <td class="col-6">{{ item.product.product_name }}</td>
+            <td class="col-6">PRICE:</td>
+            <td class="col-6">&#8377;{{ item.product.product_price }}</td>
+            <td class="col-6">QUANTITY:</td>
+            <td class="col-6">
+                <div class="qty">
+                    <button class="decrease change-qty" data-item="{{ item.product.id }}" data-action="substract">-</button>
+                    <input type="text" class="qty-display" value="{{ item.qty }}" disabled>
+                    <button class="increase change-qty" data-action="add" data-item="{{ item.product.id }}">+</button>
+                </div>
+            </td>
+            <td class="col-6">SUBTOTAL:</td>
+            <td class="col-6 weight-five item-subtotal" style="font-size: 20px;">&#8377;{{ item.get_subtotal }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="" class="coupen-form row size-one px-md-2 px-3 py-md-1 py-3">
+        <input type="text" placeholder="Coupen Code" class="col-md-4 col-12 mb-md-0 mb-3">
+        <button type="submit" class="tirtiary-btn col-md-2 col-12">APPLY COUPEN</button>
+    </form>
+    <div class="container primary-font mb-4" style="color: #000;">
+        <div class="row justify-content-between">
+            <div class="col-lg-6 col-4 d-none d-md-inline-block"></div>
+            <div class="col-lg-5 col-md-7 col-12 cart-total px-4 py-4">
+                <h3 class="mb-4 text-center weight-three" style="word-spacing: 0.4em;">CART TOTAL</h3>
+                <div class="content px-4 py-4 mb-3">
+                    <div class="d-flex content-box mb-3 py-3 px-2 justify-content-between">
+                        <span class="size-one weight-five">Subtotal</span>
+                        <span class="size-one" id="cart-sub-total">&#8377;{{ cart.get_total }}</span>
+                    </div>
+                    <div class="d-flex content-box mb-3 py-3 px-2 justify-content-between">
+                        <span class="size-one weight-five">Shipping</span>
+                        <span class="size-one shipping-charge">&#8377;{{ cart.total_shipping }}</span>
+                    </div>
+                    <div class="d-flex total mb-3 px-2 justify-content-between">
+                        <span class="size-two weight-four">TOTAL</span>
+                        <span class="size-two weight-four" id="cart-total">&#8377;{{ cart.final }}</span>
+                    </div>
+                </div>
+                <a href="{% url 'store:checkout' %}" class="secondary-btn web-link d-block text-center size-one">PROCEED TO CHECKOUT</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="py-mb-4 py-0 mb-md-3 mb-2">
+        <div class="icon text-center w-75 mx-auto px-0 mb-0"><i class="icon-basket"></i></div>
+        <h2 class="text-center w-75 mx-auto px-0 mb-2 weight-four" style="color: #000">CART IS EMPTY.</h2>
+        <p class="text-center w-75 mx-auto px-0 text size-one mb-3 weight-six">You don't have any products in your cart yet.
+            You will find a lot of interesting products on our home page.</p>
+        <div class="text-center w-75 mx-auto px-0 mt-4 mb-5">
+            <a href="{% url 'store:index' %}" class="web-link secondary-btn">RETURN TO HOME</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<script>
+    $('.change-qty').on('click',function(){
+        let display = $(this).siblings('.qty-display')
+        let parent = $(this).parent().parent()
+        let data = {
+            item : $(this).attr('data-item'),
+            action : $(this).attr('data-action')
+        }
+        $.ajax({
+            type : 'POST',
+            dataType : 'json',
+            url : '{% url "store:change_qty" %}',
+            data : JSON.stringify(data),
+            contentType : 'applicatio/json; charset=utf-8',
+            success : function(data){
+                if (data.msg == 'success'){
+                    $(display).val(data.qty)
+                    $('#cart-sub-total').html('&#8377;' + data.total)
+                    $('#cart-total').html('&#8377;' + data.final)
+                    $('.shipping-charge').html('&#8377;' + data.shipping)
+                    console.log(parent);
+                    $(parent).siblings('.item-subtotal').html('&#8377;' + data.subtotal)
+                }
+                
+            }
+        })
+    })
+    $('.delete-cartitem').on('click',function(){
+        let me = $(this)
+        let data = {
+            id : $(this).attr('data-id')
+        }
+        $.ajax({
+            type : 'POST',
+            dataType : 'json',
+            url : '{% url "store:remove_cart" %}',
+            data : JSON.stringify(data),
+            contentType : 'application/json; charset=utf-8',
+            success : function(data){
+                if (data.msg == 'success'){
+                    if (data.qty == 0){
+                        location.reload()
+                    }
+                    else{
+                        $(me).parent('tr').addClass('hidden')
+                        $('.cart-count').html(data.qty)
+                        $('#cart-sub-total').html('&#8377;' + data.subtotal)
+                        $('.shipping-charge').html('&#8377;' + data.shipping)
+                        $('#cart-total').html('&#8377;' + data.total)
+                    }
+                }
+                else{
+                    alert('Something went wrong')
+                }
+            }
+        })
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+label[for="fname"],label[for="lname"]{
+    width: 48% !important;
+}
+.contact-form input#fname,.contact-form input#lname{
+    width: 48% !important;
+}
+label[for="terms"]{
+    margin-left: 10px !important;
+}
+label,input,select,option{
+    font-size: 14px;
+}
+input::placeholder{
+    font-size: 14px;
+}
+.payment input{
+    margin-right: 5px;
+}
+.payment div{
+    display: flex;
+    align-items: center;
+}
+.payment label{
+    margin-bottom: 0;
+}

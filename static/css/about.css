@@ -1,0 +1,19 @@
+.about-box{
+    margin-top: 180px;
+    height: 75vh;
+}
+@media only screen and (max-width: 991px){
+    .about-box{
+        height: 60vh;
+    }
+}
+@media only screen and (max-width: 767px){
+    .about-box{
+        height: 70vh;
+    }
+}
+@media only screen and (max-width: 575px){
+    .about-box{
+        height: 90vh;
+    }
+}

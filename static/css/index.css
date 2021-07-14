@@ -1,0 +1,175 @@
+.spotlight{
+    height: 100vh;
+    background-image: url('/static/images/wardrobe.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.spotlight h1{
+    font-weight: 900;
+    font-size: 68px;
+    letter-spacing: 0.2em;
+    margin-bottom: 18px;
+}
+.w-70{
+    width: 70%;
+}
+.primary-btn:hover{
+    transition: all 0.5s ease;
+    color: #000 !important;
+    background: #fff;
+}
+.primary-font-color{
+    color: #000;
+    font-family: 'Karla', sans-serif;
+}
+.cat{
+    font-size: 26px;
+    font-weight: 400;
+}
+.card{
+    border: none !important;
+    border-radius: 0 !important;
+}
+.card img{
+    display: inline-block;
+    width: 80%;
+    height: 220px;
+    user-select: none;
+}
+.img-container{
+    background-color: #F0F0F0;
+}
+.name{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.subscribe{
+    height: 80vh;
+    background-image: url('/static/images/subscribe.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.subscribe-form{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #000;
+}
+button.subscribe-form{
+    background: #fff;
+    border: 2px solid #fff;
+}
+.subscribe form input::placeholder{
+    color: rgb(221, 221, 221);
+}
+input.subscribe-form{
+    width: 65%;
+    color: #fff;
+}
+input.subscribe-form:focus{
+    outline: none !important;
+    border: none !important;
+    border-bottom: 2px solid #fff !important;
+}
+.lg-card img{
+    display: inline-block;
+    width: 100%;
+    height: 220px;
+    user-select: none;
+}
+.news{
+    width: 25%;
+}
+.subscribe h2{
+    font-size: 40px;
+}
+a.spotlight-btn{
+    width: 23%;
+}
+#products + .row{
+    overflow-x: hidden;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+#products + .row > .col-md-3 {
+    display: inline-block;
+    float: none;
+}
+.scroll-controll{
+    position: relative;
+    color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    user-select: none;
+}
+.scroll-controll>i{
+    font-size: 4em;
+}
+.scroll-controll.right{
+    right: -93%;
+    top: -233px;
+}
+.scroll-controll.left{
+    right: 3%;
+    top: -233px;
+}
+@media only screen and (max-width: 1199px){
+    #products + .row{
+        overflow-x: auto;
+    }
+    .spotlight{
+        height: 40vh;
+    }
+    .spotlight-text{
+        width: 100%;
+    }
+    .subscribe{
+        height: 40vh;
+    }
+    h1.spotlight-text{
+        font-size: 54px;
+    }
+    a.spotlight-btn{
+        width: 28%;
+    }
+}
+@media only screen and (max-width:991px){
+    h1.spotlight-text{
+        font-size: 54px;
+    }
+    a.spotlight-btn{
+        width: 38%;
+    }
+}
+@media only screen and (max-width:767px){
+    h1.spotlight-text{
+        font-size: 40px;
+    }
+    a.spotlight-btn{
+        font-size: 14px !important;
+        width: 40%;
+    }
+    .subscribe{
+        height: 70vh;
+    }
+    .news{
+        width: 100%;
+    }
+}
+@media only screen and (max-width:575px){
+    h1.spotlight-text{
+        font-size: 25px;
+    }
+    a.spotlight-btn{
+        font-size: 14px !important;
+        width: 55%;
+    }
+    .news{
+        width: 100%;
+    }
+}

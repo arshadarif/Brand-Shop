@@ -1,0 +1,79 @@
+{% extends 'email_base.html' %}
+{% block title %}
+<style>
+    *{
+        color: #737373;
+    }
+    table{
+        color: #737373 !important;
+        width: 95% !important;
+        border-collapse: collapse !important;
+    }
+    table td,table th{
+        border: 1px solid #e4e4e4 !important;
+        text-align: left;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<p class="mb-3">Hi {{ user.customer.first_name }} {{ user.customer.last_name }},</p>
+<p class="mb-3">Just to let you know — we've received your order #{{ checkout.id }}, and it is now being processed:</p>
+<p class="mb-3">{% if checkout.payment_method == 'CA' %}
+    Pay with cash upon delivery
+    {% endif %}</p>
+<p class="mb-2" style="font-weight: 600;font-size: 18px;color: #557da1;">[Order #{{ checkout.id }}] ({{ checkout.checkout_date }})</p>
+<table class="mb-0">
+    <thead cellspacing="0" cellpadding="0">
+        <tr>
+            <th style="padding:10px 40px 10px 10px">Product</th>
+            <th style="padding:10px 20px 10px 10px">Quantity</th>
+            <th style="padding:10px 20px 10px 10px">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cartitems %}
+        <tr>
+            <td style="padding:10px 40px 10px 10px">{{ item.product.product_name }}</td>
+            <td style="padding:10px 20px 10px 10px;text-align: center;">{{ item.qty }}</td>
+            <td style="padding:10px 20px 10px 10px"> &#8377;{{ item.item_total }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table cellspacing="0" cellpadding="0">
+<table class="mt-0 mb-3">
+    <tr>
+        <th style="padding:10px 60px 10px 10px">Subtotal:</th>
+        <td style="padding:10px 20px 10px 10px;text-align: right;">&#8377;{{ order_cart.order_sub_total }}</td>
+    </tr>
+    <tr>
+        <th style="padding:10px 60px 10px 10px">Shipping:</th>
+        <td style="padding:10px 20px 10px 10px;text-align: right;">&#8377;{{ order_cart.order_shipping }}</td>
+    </tr>
+    <tr>
+        <th style="padding:10px 60px 10px 10px">Payment method:</th>
+        <td style="padding:10px 20px 10px 10px;text-align: right;">{{ checkout.get_payment_method_display }}</td>
+    </tr>
+    <tr>
+        <th style="padding:10px 60px 10px 10px">Total:</th>
+        <td style="padding:10px 20px 10px 10px;text-align: right;">&#8377;{{ order_cart.final }}</td>
+    </tr>
+</table>
+<h3 style="color:#557da1">Shipping address</h3>
+<div class="row">
+    <div style="padding:10px 10px 10px 20px;border: 1px solid #e4e4e4;width: 50%;font-style: italic;" class="">
+        <p>{{ checkout.first_name|capfirst }} {{ checkout.last_name }}</p>
+        {% if checkout.street1 %}
+        <p>{{ checkout.street1 }}</p>
+        {% endif %}
+        {% if checkout.street2 %}
+        <p>{{ checkout.street2 }}</p>
+        {% endif %}
+        <p>{{ checkout.city }}, {{ checkout.post_code }}</p>
+        <p>{{ checkout.get_state_display }} , India</p>
+        <p>{{ checkout.phone }}</p>
+        {% if checkout.email %}
+        <p>{{ checkout.email }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

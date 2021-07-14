@@ -1,0 +1,13 @@
+.card{
+    border: none !important;
+    border-radius: 0 !important;
+}
+.card img{
+    display: inline-block;
+    width: 80%;
+    height: 220px;
+    user-select: none;
+}
+.img-container{
+    background-color: #F0F0F0;
+}

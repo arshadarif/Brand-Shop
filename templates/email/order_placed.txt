@@ -1,0 +1,34 @@
+Hi {{ user.customer.first_name }} {{ user.customer.last_name }},
+
+Just to let you know — we've received your order #{{ checkout.id }}, and it is now being processed:
+
+{% if checkout.payment_method == 'CA' %}
+Pay with cash upon delivery
+{% endif %}
+
+{{ checkout.checkout_date }}
+{% for item in cartitems %}
+product : {{ item.product.product_name }}
+qty : {{ item.qty }}
+price : {{ item.item_total }}
+{% endfor %}
+
+subtotal : {{ order_cart.order_sub_total }}
+shipping charge : {{ order_cart.order_shipping }}
+Total : {{ order_cart.final }}
+
+Shipping Address:
+
+{{ checkout.first_name|capfirst }} {{ checkout.last_name }}
+{% if checkout.street1 %}
+{{ checkout.street1 }}
+{% endif %}
+{% if checkout.street2 %}
+{{ checkout.street2 }}
+{% endif %}
+{{ checkout.city }}, {{ checkout.post_code }}
+{{ checkout.state }} , India
+{{ checkout.phone }}
+{% if checkout.email %}
+{{ checkout.email }}
+{% endif %}

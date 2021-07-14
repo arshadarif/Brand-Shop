@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Account Details | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+<link rel="stylesheet" href="{% static 'css/account/ac_detail.css' %}">
+{% endblock %}
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">MY ACCOUNT</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"><i class="fas fa-home"></i> Home</a> / My Account
+    </div>
+</div>
+<div class="container-fluid px-sm-5 px-2 py-sm-5 py-1 mb-4 primary-font">
+    <div class="row">
+        <div class="col-lg-4 col-12 px-0 mb-lg-0 mb-4">
+            <ul class="dash-ul px-0 px-lg-3">
+                <li class="text-center dash-head weight-four">MY ACCOUNT</li>
+                <a href="{% url 'account:account' %}" class="d-block size-four web-link-two"><li>DASHBOARD</li></a>
+                <a href="{% url 'account:orders' %}" class="d-block size-four web-link-two"><li>ORDERS</li></a>
+                <a href="{% url 'account:address' %}" class="d-block size-four web-link-two"><li>ADDRESSES</li></a>
+                <a href="{% url 'account:ac_detail' %}" class="d-block active size-four web-link-two"><li>ACCOUNT DETAILS</li></a>
+                <a href="{% url 'store:wishlist' %}" class="d-block size-four web-link-two"><li>WISHLIST</li></a>
+                <a href="{% url 'account:logout' %}" class="d-block size-four web-link-two"><li>LOGOUT</li></a>
+            </ul>
+        </div>
+        <div class="col-lg-8 col-12 row px-lg-3 px-0 justify-content-center" style="color: #000;">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert col-12 alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% else %}
+            <div class="alert col-12 alert-success" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <form action="" method="POST" class="row col-12 justify-content-between contact-form">
+                <label for="fname" class="mb-1 px-0 size-one">First name</label>
+                <label for="lname" class="mb-1 px-0 size-one">Last name</label>
+                {{ form.first_name }}
+                {{ form.last_name }}
+                <fieldset class="col-12 row">
+                    <legend class="col-lg-6 col-xl-4 pl-md-4 pl-0 pr-0 col-md-6 text-lg-left text-center col-sm-8 col-9">PASSWORD CHANGE</legend>
+                    <label for="password" class="mb-1 col-12 size-one px-0 ">Current password (leave blank to leave unchanged)</label>
+                    {{ form.current_password }}
+                    <label for="new-password" class="col-12 size-one mb-1 px-0 ">New password (leave blank to leave unchanged)</label>
+                    {{ form.new_password }}
+                    <label for="c-pass" class="mb-1 px-0 col-12 size-one">Confirm new password</label>
+                    {{ form.confirm_password }}
+                </fieldset>
+                {{ form.non_field_errors }}
+                {% csrf_token %}
+                <input type="submit" value="SAVE CHANGES" class="col-md-3 col-4 fourth-btn">
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $('input[name="current_password"]').addClass('col-12 size-one')
+    $('input[name="new_password"]').addClass('col-12 size-one')
+    $('input[name="confirm_password"]').addClass('col-12 size-one')
+    $('.errorlist').addClass('d-flex col-12 px-0 left-ul')
+    $('.errorlist').css('color','rgb(255,0,0)')
+</script>
+{% endblock %}

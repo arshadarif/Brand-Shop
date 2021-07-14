@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Search Result | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
+{% block content %}
+<div style="min-height: 70vh;" class="row mt-2">
+    {% if products %}
+    {% for product in products %}
+        {% if product.in_stock %}
+        <a href="{% url 'store:product' product.id %}" class="web-link-two card mb-3 col-6 col-md-3">
+            <div class="img-container text-center py-3 web-link-two">
+                <img src="{{ product.imageURL }}" alt="">
+            </div>
+            <div class="details">
+                <div class="name secondary-font">{{ product.product_name }}</div>
+                <div class="price primary-font" style="color: #949494;font-size:16px">&#8377;{{ product.product_price }}</div>
+            </div>
+        </a>
+        {% endif %}
+    {% endfor %}
+    {% else %}
+    <p style="color:#000" class="primary-font px-3 size-one text-center">No items found</p>
+    {% endif %}
+</div>
+{% endblock %}

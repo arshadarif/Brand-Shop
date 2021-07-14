@@ -1,0 +1,2 @@
+This mail is to verify that you just registered an account in Kitchen Chimney. Please avoid this mail if it's not you click the following link to activate your account
+https://ecombrandshop.herokuapp.com{% url 'account:activate' user.id %}

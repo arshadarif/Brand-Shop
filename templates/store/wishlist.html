@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Wishlist | Euro Fresh</title>
+<link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+{% endblock %}
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">WISHLIST</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"><i class="fas fa-home"></i> Home</a> / Wishlist
+    </div>
+</div>
+<div class="container-fluid px-sm-5 px-2 py-sm-5 py-1 mb-4 primary-font">
+    <div class="row">
+        {% if auth %}
+        <div class="col-lg-4 col-12 px-0 mb-lg-0 mb-4">
+            <ul class="dash-ul px-0 px-lg-3">
+                <li class="text-center dash-head weight-four">MY ACCOUNT</li>
+                <a href="{% url 'account:account' %}" class="d-block size-four web-link-two"><li>DASHBOARD</li></a>
+                <a href="{% url 'account:orders' %}" class="d-block size-four web-link-two"><li>ORDERS</li></a>
+                <a href="{% url 'account:address' %}" class="d-block size-four web-link-two"><li>ADDRESSES</li></a>
+                <a href="{% url 'account:ac_detail' %}" class="d-block size-four web-link-two"><li>ACCOUNT DETAILS</li></a>
+                <a href="{% url 'store:wishlist' %}" class="d-block active size-four web-link-two"><li>WISHLIST</li></a>
+                <a href="{% url 'account:logout' %}" class="d-block size-four web-link-two"><li>LOGOUT</li></a>
+            </ul>
+        </div>
+        {% endif %}
+        <div class="{% if auth %} col-lg-7 {% endif %} col-12 row px-0 justify-content-center">
+            {% if wishlist.get_wishlist == 0 %}
+            <div class="container-sm container-fluid py-mb-4 py-0 mb-md-3 mb-2">
+                <div class="icon text-center mb-0 "><i class="icon-heart"></i></div>
+                <h2 class="text-center mb-2 weight-four" style="color: #000">WISHLIST IS EMPTY.</h2>
+                <p class="text-center text size-one mb-3 weight-six">You don't have any products in the wishlist yet.
+                    You will find a lot of interesting products on our home page.</p>
+                <div class="text-center mt-4 mb-5">
+                    <a href="{% url 'store:index' %}" class="web-link secondary-btn">RETURN TO HOME</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="container px-3">
+                <h3 class="weight-five mb-3 size-two weight-six" style="color: #000">YOUR PRODUCT WISHLIST</h3>
+                <div class="card-container row" style="color: #000">
+                    {% for item in items %}
+                    <div class="card col-sm-3 col-6">
+                        <div class="text-center delete-wishitem size-one mb-3" data-id="{{ item.product.id }}"><i style="cursor:pointer;" class="far fa-trash-alt"></i></div>
+                        <a href="{% url 'store:product' item.product.id %}" class="img-container text-center py-3 web-link-two">
+                            <img src="{{ item.product.imageURL }}" alt="">
+                        </a>
+                        <div class="details">
+                            <div class="name secondary-font">{{ item.product.product_name }}</div>
+                            <div class="price primary-font" style="color: #949494;font-size:16px">&#8377;{{ item.product.product_price }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    $('.delete-wishitem').on('click',function(){
+        let me = $(this)
+        let data = {
+            id : $(this).attr('data-id')
+        }
+        $.ajax({
+            type : 'POST',
+            dataType : 'json',
+            url : '{% url "store:remove_wishlist" %}',
+            data : JSON.stringify(data),
+            contentType : 'application/json; charset=utf-8',
+            success : function(data){
+                if (data.msg == 'success'){
+                    if(data.qty == 0){
+                        location.reload()
+                    }
+                    else{
+                        $(me).parent('div').addClass('hidden');
+                        $('.wishlist-count').html(data.qty)
+                    }
+                }
+                else{
+                    alert('Something went wrong')
+                }
+            }
+        })
+    })
+</script>
+{% endblock %}

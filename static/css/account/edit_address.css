@@ -1,0 +1,20 @@
+label[for="fname"],label[for="lname"]{
+    width: 48% !important;
+}
+.contact-form input[name="first_name"],.contact-form input[name="last_name"]{
+    width: 48% !important;
+    font-size: 14px;
+}
+label[for="terms"]{
+    margin-left: 10px !important;
+    font-size: 14px;
+}
+label,input,select,option{
+    font-size: 14px;
+}
+input::placeholder{
+    font-size: 14px;
+}
+label,input,select{
+    color: #000 !important;
+}

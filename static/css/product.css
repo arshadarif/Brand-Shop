@@ -1,0 +1,13 @@
+.description-box{
+    background-color: #f9f9f9;
+}
+.image-container{
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-container>img{
+    width: 80%;
+    display: inline-block;
+}

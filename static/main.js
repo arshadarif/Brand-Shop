@@ -1,0 +1,54 @@
+$('#page').on('mouseover',function(){
+    $('.pages').toggleClass('hidden')
+})
+$('#page').on('mouseout',function(){
+    $('.pages').toggleClass('hidden')
+})
+$('#shop').on('mouseover',function(){
+    $('.shop').toggleClass('hidden')
+})
+$('#shop').on('mouseout',function(){
+    $('.shop').toggleClass('hidden')
+})
+$('.pages').on('mouseover',function(){
+    $('.pages').toggleClass('hidden')
+})
+$('.pages').on('mouseout',function(){
+    $('.pages').toggleClass('hidden')
+})
+$('.shop').on('mouseover',function(){
+    $('.shop').toggleClass('hidden')
+})
+$('.shop').on('mouseout',function(){
+    $('.shop').toggleClass('hidden')
+})
+$('.login-or-register').on('click',function(){
+    $('.cover').removeClass('hidden')
+    $('.side-menu').addClass('effect')
+    $('.search-box').addClass('hidden')
+
+})
+$('.close-btn').on('click',function(){
+    $('.cover').addClass('hidden')
+    $('.side-menu').removeClass('effect')
+})
+$('.search-icon').on('click',function(){
+    $('.search-box').toggleClass('hidden')
+})
+$('.search-close').on('click',function(){
+    $('.search-box').toggleClass('hidden')
+})
+$('.icon-menu').on('click',function(){
+    $('.cover').toggleClass('hidden')
+    $('.left-side-menu').toggleClass('left-menu-effect')
+})
+$('.cover').on('click',function(){
+    $('.cover').addClass('hidden')
+    $('.left-side-menu').removeClass('left-menu-effect')
+})
+$('.side-page').on('click',function(){
+    $('.side-page-drop').toggleClass('side-effect')
+})
+$('.side-shop').on('click',function(){
+    $('.side-shop-drop').toggleClass('side-effect')
+})

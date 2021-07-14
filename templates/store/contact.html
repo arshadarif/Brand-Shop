@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Contact Us | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container-lg container-fluid px-0 main-box">
+    <div class="primary-font row justify-content-between pt-md-5 pt-2" style="color: #000;">
+        <div class="col-md-5 col-12 mb-md-0 mb-5">
+            <div class="top px-0 mb-3 row align-items-center">
+                <h4 class="weight-three px-0 col-lg-8 col-12">GET IN TOUCH WITH US</h4>
+                <div class="line col-4 d-lg-inline-block d-none px-0 mx-0" style="margin-left: 0;">
+                    <span></span>
+                </div>
+            </div>
+            <div class="bottom">
+                <form action="" class="row justify-content-between contact-form">
+                    <label for="name" class="mb-1 px-0 d-lg-inline-block d-none">Your Name (required)</label>
+                    <label for="email" class="mb-1 px-0 d-lg-inline-block d-none">Your Email (required)</label>
+                    <input type="text" class="d-lg-inline-block d-none" id="name" required>
+                    <input type="email" class="d-lg-inline-block d-none" id="email" required>
+                    <label for="name" class="mb-1 px-0 d-lg-none d-inline-block col-12">Your Name (required)</label>
+                    <input type="text" id="name" class="d-lg-none d-inline-block col-12" required>
+                    <label for="email" class="mb-1 px-0 d-lg-none d-inline-block col-12">Your Email (required)</label>
+                    <input type="email" id="email" class="d-lg-none d-inline-block col-12" required>
+                    <label for="sub" class="mb-1 px-0 col-12">Subject</label>
+                    <input type="text" name="subject" id="sub" class="col-12">
+                    <label for="msg" class="mb-1 px-0 col-12">Message</label>
+                    <textarea name="message" id="msg" cols="20" rows="12" class="mb-4 col-12"></textarea>
+                    <input type="submit" value="SEND A MESSSAGE" class="col-xl-4 col-lg-5 col-6 secondary-btn">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 col-12">
+            <div class="top px-0 mb-3 row align-items-center">
+                <h4 class="weight-three px-0 col-lg-7 col-12">INFORMATION ABOUT US</h4>
+                <div class="line col-5 px-0 mx-0 d-lg-inline-block d-none">
+                    <span></span>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <p class="col-11 px-0 mb-4 about size-one">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio esse doloremque blanditiis repellendus excepturi ipsa corporis quod sapiente est debitis, asperiores eveniet rerum ullam sequi autem! Illum ad quisquam laudantium!</p>
+                <p class="col-11 px-0 mb-0 about size-one">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo accusamus architecto odio eum, cum inventore blanditiis, ipsam doloremque dolorem placeat odit earum enim nemo, fugit nihil dicta libero minus quasi?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis rem ullam ex sapiente asperiores itaque animi consectetur ut culpa? Iusto sunt quas laboriosam odio magni quaerat adipisci a facere veritatis?Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima laborum magni veritatis. Molestiae sint et assumenda amet, asperiores facere iure nobis error commodi similique. Pariatur illo ipsam eligendi provident modi.</p>
+            </div>
+            <div class="top px-0 mb-3 row align-items-center">
+                <h4 class="weight-three px-0 col-lg-4 col-12">CONTACT US</h4>
+                <div class="line col-8 d-lg-inline-block d-none mx-0 px-0">
+                    <span></span>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-xl-6 col-12 mb-3 row">
+                    <div class="col-3 px-0 contact-icon"><i class="icon-envelope"></i></div>
+                    <div class="col-9 px-0 contact-text">
+                        <p class="mb-0 size-four">Tel: +91-8848875458</p>
+                        <p class="mb-0 size-four">Email: arshadkkarif@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-12 row">
+                    <div class="col-3 px-0 contact-icon"><i class="icon-cursor"></i></div>
+                    <div class="col-9 px-0 contact-text">
+                        <p class="mb-0 size-four">Shop No-11, 1st Floor Bata Flyover, Opp Bata Showroom</p>
+                        <p class="mb-0 size-four">Kochi-682001</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <a href="#" class="contact-social" style="background-color: #365493;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="contact-social" style="background-color: #33CCFF;"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="contact-social" style="background-color: #E80071;"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="contact-social" style="background-color: #48B46A;"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

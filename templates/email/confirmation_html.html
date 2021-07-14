@@ -1,0 +1,6 @@
+{% extends 'email_base.html' %}
+{% load static %}
+{% block content %}
+<p class="size-one primary-font">This mail is to verify that you just registered an account in Kitchen Chimney. Pleaseavoid this mail if it's not you</p>
+<a href="https://ecombrandshop.herokuapp.com{% url 'account:activate' user.id %}" style="color:#fff" class="size-one primary-font secondary-btn web-link">Click here to verify your account</a>
+{% endblock %}

@@ -1,0 +1,18 @@
+.message{
+    color: #7d9f5d;
+    border: 3px dashed #7D9F5D;
+}
+.order-row{
+    border-bottom: 1px solid #E6E6E6;
+}
+.order-main-row{
+    border-bottom: 2px solid #E6E6E6;
+}
+.order-row p{
+    color: #4c4c4c;
+    font-weight: 400;
+}
+.address-box{
+    border: 3px dashed #D5D5D5;
+    color: #4c4c4c;
+}

@@ -1,0 +1,150 @@
+{% extends 'base.html' %} {% load static %} 
+{% block title %}
+<title>Checkout | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %} 
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">CHECKOUT</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"
+            ><i class="fas fa-home"></i> Home</a
+        >
+        / Checkout
+    </div>
+</div>
+<div class="container-lg container-fluid py-3">
+    <form method="POST" class="mt-5 mb-4 row justify-content-between">
+        <div class="col-md-5 col-12">
+            <h4 class="mb-5">BILLING DETAILS</h4>
+            <div action="" class="row justify-content-between contact-form">
+                <label for="name" class="mb-1 px-0 col-lg-6 col-12">Your First Name (required)</label>
+                <label for="email" class="mb-1 px-0 col-lg-5 d-lg-inline-block d-none">Your Last Name (required)</label>
+                {{ form.first_name }}
+                <label for="text" class="mb-1 px-0 d-lg-none d-inline-block col-12">Your Last Name (required)</label>
+                {{ form.last_name }}
+                <label class="mb-1 px-0 col-12">State</label>
+                {{ form.state }}
+                <label class="mb-1 px-0 col-12">Street address</label>
+                {{ form.street1 }}
+                {{ form.street2 }}
+                <label class="mb-1 px-0 col-12">Town / City</label>
+                {{ form.city }}
+                <label class="mb-1 px-0 col-12">Postcode</label>
+                {{ form.post_code }}
+                <label class="mb-1 px-0 col-12">Phone</label>
+                {{ form.phone }}
+                <label class="mb-1 px-0 col-12">Email address</label>
+                {{ form.email }}
+            </div>
+        </div>
+        <div class="col-md-6 col-12 cart-total px-4 py-4" style="height: fit-content;">
+            <h4
+                class="mb-4 text-center weight-four"
+                style="word-spacing: 0.4em"
+            >
+                YOUR ORDER
+            </h4>
+            <div class="content px-4 py-4 mb-3">
+                <div
+                    class="
+                        d-flex
+                        content-box
+                        mb-3
+                        py-3
+                        px-2
+                        justify-content-between
+                    "
+                >
+                    <span class="size-one weight-five">Subtotal</span>
+                    <span class="size-one">&#8377;{{ cart.get_total }}</span>
+                </div>
+                <div
+                    class="
+                        d-flex
+                        content-box
+                        mb-3
+                        py-3
+                        px-2
+                        justify-content-between
+                    "
+                >
+                    <span class="size-one weight-five">Shipping</span>
+                    <span class="size-one">&#8377;{{ cart.total_shipping }}</span>
+                </div>
+                <div class="d-flex total mb-3 px-2 justify-content-between">
+                    <span class="size-two weight-four">TOTAL</span>
+                    <span class="size-two weight-four" style="color: #179a94;">&#8377;{{ cart.final }}</span>
+                </div>
+            </div>
+            <div class="payment mb-4">
+                <h5 class="mb-4">PAYMENT METHOD</h5>
+                <div class="mb-2">
+                    <input type="radio" value="CR" name="method" id="card" required>
+                    <label for="card">Pay with card</label>
+                </div>
+                <div class="mb-2">
+                    <input type="radio" value="CA" name="method" id="cod">
+                    <label for="cod">Cash on delivery</label>
+                </div>
+            </div>
+            <input type="checkbox" name="terms" id="terms" class="mb-4" required/>
+            <label for="terms"
+                >I have read and agree to the website
+                <a href="#" class="web-link-two weight-five"
+                    >terms and conditions</a
+                ></label
+            >
+            {% csrf_token %}
+            <input
+                type="submit"
+                value="PLACE ORDER"
+                class="secondary-btn d-block w-100 text-center size-one"
+            />
+        </div>
+    </form>
+</div>
+<script>
+    let first_name = $('input[name="first_name"]')
+    let last_name = $('input[name="last_name"]')
+    let state = $('select[name="state"]')
+    let street1 = $('input[name="street1"]')
+    let street2 = $('input[name="street2"]')
+    let city = $('input[name="city"]')
+    let post_code = $('input[name="post_code"]')
+    let phone = $('input[name="phone"]')
+    let email = $('input[name="email"]')
+
+    $(first_name).addClass('col-lg-6 col-12 size-one')
+    $(last_name).addClass('col-lg-5 col-12 size-one')
+    $(state).addClass('mb-1 px-2 col-12 size-one')
+    $(street1).addClass('mb-1 px-2 col-12 size-one')
+    $(street1).attr('placeholder','House number and street name')
+    $(street2).addClass('mb-1 px-2 col-12 size-one')
+    $(street2).attr('placeholder','Apartment, suit, unit, etc')
+    $(city).addClass('mb-1 px-2 col-12 size-one')
+    $(post_code).addClass('mb-1 px-2 col-12 size-one')
+    $(phone).addClass('mb-1 px-2 col-12 size-one')
+    $(email).addClass('mb-1 px-2 col-12 size-one')
+
+    let address = '{% if address %}{{ address }}{% endif %}'
+    if (Boolean(address) == true){
+        $(first_name).val('{{ address.first_name|capfirst }}')
+        $(last_name).val('{{ address.last_name|capfirst }}')
+        $(state).find('option[value="{{ address.state }}"]').attr('selected','selected')
+        $(city).val('{{ address.city }}')
+        $(post_code).val('{{ address.post_code }}')
+        $(phone).val('{{ address.phone }}')
+        if ('{{address.street1}}' != 'None'){
+            $(street1).val('{{ address.street1 }}')
+        }
+        if ('{{address.street2}}' != 'None'){
+            $(street2).val('{{ address.street2 }}')
+        }
+        if ('{{address.email}}' != 'None'){
+            $(email).val('{{ address.email }}')
+        }
+    }
+
+</script>
+{% endblock %}

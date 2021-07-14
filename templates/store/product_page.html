@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Product-{{ product.product_name }} | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container primary-font pb-5 mb-3 mt-2 pt-5" style="color: #000;">
+    <div class="main-container row justify-content-between">
+        <div class="col-md-5 col-12 text-md-left text-center mb-md-0 mb-3 py-2 px-2 image-container">
+            <img src="{{ product.imageURL }}" alt="chimney">
+        </div>
+        <div class="col-md-6 col-12 action-container">
+            <h1 class="weight-five secondary-font mb-3" style="font-size: 28px;">{{ product.product_name }}</h1>
+            <p class="mb-3" style="font-size: 28px;color: #179a94;">&#8377;{{ product.product_price }}</p>
+            <p class="size-one mb-5">{{ product.short_description }}</p>
+            <div class="tools d-flex">
+                <button class="size-one tirtiary-btn add-cart" data-id="{{ product.id }}" style="font-weight: 300;">Add to Cart</button>
+                <button class="size-one secondary-btn add-wishlist" data-id="{{ product.id }}" style="margin-left: 10px;font-weight: 300;">Add to Wishlist</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="primary-font container-fluid description-box py-4" style="color: #000;">
+    <div class="container py-1">
+        <h3 class="text-center mb-4">Description</h3>
+        <p>{{ product.long_description }}</p>
+    </div>
+</div>
+<script>
+    $('.add-cart').on('click',function(){
+        let me = $(this)
+        $(this).attr('disabled','disabled')
+        $('.add-wishlist').attr('disabled','disabled')
+        let data = {
+            'id' : $(this).attr('data-id')
+        }
+        $.ajax({
+            type : 'POST',
+            dataType : 'json',
+            url : '{% url "store:add_cart" %}',
+            data : JSON.stringify(data),
+            contentType : 'application/json; charset=utf-8',
+            success : function(data){
+                if (data.msg == 'success'){
+                    alert('Added')
+                }
+                else {
+                    alert('item already exist in your cart')
+                }
+                $('.cart-count').html(data.cart_qty)
+                $(me).removeAttr('disabled')
+                $('.add-wishlist').removeAttr('disabled')
+            }
+        })
+    })
+    $('.add-wishlist').on('click',function(){
+
+        let me = $(this)
+        $(this).attr('disabled','disabled')
+        $('.add-cart').attr('disabled','disabled')
+        let data = {
+            id : $(this).attr('data-id')
+        }
+        $.ajax({
+            type : 'POST',
+            dataType : 'json',
+            url : "{% url 'store:add_wishlist' %}",
+            data : JSON.stringify(data),
+            contentType : 'application/json; charset=utf-8',
+            success : function(data){
+                if (data.msg == 'success'){
+                    alert('item added to wishlist')
+                }
+                else{
+                    alert('item already exist in your wishlist')
+                }
+                $('.wishlist-count').html(data.qty)
+
+                $(me).removeAttr('disabled')
+                $('.add-cart').removeAttr('disabled')
+            }
+        })
+
+    })
+</script>
+{% endblock %}

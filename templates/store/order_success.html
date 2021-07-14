@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Success | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/order_success.css' %}">
+{% endblock %}
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">CHECKOUT</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"><i class="fas fa-home"></i> Home</a> / Checkout
+    </div>
+</div>
+<div class="container px-md-5 px-0">
+    <div class="row justify-content-center">
+        <div class="message col-9 px-3 py-3 mb-3 weight-five text-center">
+            Thank you. Your order has been received.
+        </div>
+        <h3 class="col-10 text-center">ORDER DETAILS</h3>
+        <div class="col-lg-10 col-12 row justify-content-between">
+            <div class="order-main-row py-3 row col-12">
+                <h5 class="col-sm-6 col-7 px-0">PRODUCT</h5>
+                <h5 class="col-sm-6 col-5 text-right">TOTAL</h5>
+            </div>
+            {% for item in items %}
+            <div class="order-row py-3 row col-12">
+                <p class="size-one col-sm-6 col-7 px-0">{{ item.product.product_name }}<span class="weight-five"> x {{ item.qty }}</span></p>
+                <p class="size-one col-sm-6 col-5 text-right">&#x20B9;{{ item.item_total }}</p>
+            </div>
+            {% endfor %}
+            <div class="order-row py-3 row col-12">
+                <h5 class="col-sm-6 col-7 px-0">SUB TOTAL:</h5>
+                <p class="size-one col-sm-6 col-5 text-right">&#x20B9;{{ checkout.items.order_sub_total }}</p>
+            </div>
+            <div class="order-row py-3 row col-12">
+                <h5 class="col-sm-6 col-7 px-0">SHIPPING:</h5>
+                <p class="size-one col-sm-6 col-5 text-right">&#x20B9;{{ checkout.items.order_shipping }}</p>
+            </div>
+            <div class="order-row py-3 row col-12">
+                <h5 class="col-sm-6 col-7 px-0">PAYMENT METHOD:</h5>
+                <p class="size-one col-sm-6 col-5 text-right">{{ checkout.get_payment_method_display }}</p>
+            </div>
+            <div class="order-row py-3 row col-12">
+                <h5 class="col-sm-6 col-7 px-0">TOTAL:</h5>
+                <h5 class="col-sm-6 col-5 text-right">&#x20B9;{{ checkout.amount }}</h5>
+            </div>
+        </div>
+        <div class="col-10 row mt-5 mb-5">
+            <h4 class="weight-five px-0 mb-3 col-12">Shipping Address</h4>
+            <div class="address-box px-2 py-3 col-lg-3 col-md-5 col-sm-6 col-8">
+                <p class="size-one mb-1" style="font-style: italic;">{{checkout.first_name|capfirst}} {{checkout.last_name|capfirst}}</p>
+                {% if checkout.street1 %}
+                <p class="size-one mb-1" style="font-style: italic;">{{ checkout.street1|capfirst }}</p>
+                {% endif %}
+                {% if checkout.street2 %}
+                <p class="size-one mb-1" style="font-style: italic;">{{ checkout.street2|capfirst }}</p>
+                {% endif %}
+                <p class="size-one mb-1" style="font-style: italic;">{{ checkout.city }}, {{ checkout.post_code }}</p>
+                <p class="size-one mb-1" style="font-style: italic;">{{ checkout.get_state_display }}, India</p>
+                <p class="size-one mb-1" style="font-style: italic;">{{ checkout.phone }}</p>
+                {% if checkout.email %}
+                <p class="size-one mb-1" style="font-style: italic;">{{ checkout.email }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

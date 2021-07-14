@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>My Account | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">MY ACCOUNT</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"><i class="fas fa-home"></i> Home</a> / My Account
+    </div>
+</div>
+{% if auth %}
+<div class="container-fluid px-sm-5 px-2 py-sm-5 py-1 mb-4 primary-font">
+    <div class="row">
+        <div class="col-lg-4 col-12 px-0 mb-lg-0 mb-4">
+            <ul class="dash-ul px-0 px-lg-3">
+                <li class="text-center dash-head weight-four">MY ACCOUNT</li>
+                <a href="{% url 'account:account' %}" class="d-block active size-four web-link-two"><li>DASHBOARD</li></a>
+                <a href="{% url 'account:orders' %}" class="d-block size-four web-link-two"><li>ORDERS</li></a>
+                <a href="{% url 'account:address' %}" class="d-block size-four web-link-two"><li>ADDRESSES</li></a>
+                <a href="{% url 'account:ac_detail' %}" class="d-block size-four web-link-two"><li>ACCOUNT DETAILS</li></a>
+                <a href="{% url 'store:wishlist' %}" class="d-block size-four web-link-two"><li>WISHLIST</li></a>
+                <a href="{% url 'account:logout' %}" class="d-block size-four web-link-two"><li>LOGOUT</li></a>
+            </ul>
+        </div>
+        <div class="col-lg-8 col-12 row px-0 justify-content-lg-center justify-content-md-around">
+            <a href="{% url 'account:orders' %}" class="ac-box web-link-two col-md-3 col-12">
+                <p class="text-center ac-icon mb-0"><i class="icon-note"></i></p>
+                <p class="size-three text-center ac-text">ORDERS</p>
+            </a>
+            <a href="{% url 'account:address' %}" class="ac-box web-link-two col-md-3 col-12">
+                <p class="text-center ac-icon mb-0"><i class="icon-location-pin"></i></p>
+                <p class="size-three text-center ac-text">ADDRESSES</p>
+            </a>
+            <a href="{% url 'account:ac_detail' %}" class="ac-box web-link-two col-md-3 col-12">
+                <p class="text-center ac-icon mb-0"><i class="icon-user"></i></p>
+                <p class="size-three text-center ac-text">ACCOUNT DETAILS</p>
+            </a>
+            <a href="{% url 'store:wishlist' %}" class="ac-box web-link-two col-md-3 col-12">
+                <p class="text-center ac-icon mb-0"><i class="icon-heart"></i></p>
+                <p class="size-three text-center ac-text">WISHLIST</p>
+            </a>
+            <a href="{% url 'account:logout' %}" class="ac-box web-link-two col-md-3 col-12">
+                <p class="text-center ac-icon mb-0"><i class="icon-logout"></i></p>
+                <p class="size-three text-center ac-text">LOGOUT</p>
+            </a>
+            <a href="{% url 'store:index' %}" class="ac-box web-link-two col-md-3 col-12">
+                <p class="text-center ac-icon mb-0"><i class="icon-home"></i></p>
+                <p class="size-three text-center ac-text">HOME</p>
+            </a>
+        </div>
+    </div>
+    
+</div>
+{% else %}
+<div class="container mt-4 mb-5 pt-3 primary-font" style="color: #000;">
+    <div class="row justify-content-between pt-5 mt-3 login-window">
+        {% if messages %}
+        <div class="col-12 row mb-3 px-2">
+            {% for message in messages %}
+            <div class="alert col-10 {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} mx-auto size-one" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="col-lg-6 col-12 px-sm-5 px-2 right-border">
+            <h1 style="display: flex;align-items: center;" class="weight-five mb-5 weight-six">
+                <i style="margin-right: 5px;" class="icon-login"></i> Login
+            </h1>
+            <form method="POST" class="row justify-content-between contact-form mb-5">
+                <label for="uname" class="mb-1 px-0 col-12 size-one">Username</label>
+                <input style="padding: 10px !important;" type="text" name="username" id="uname" class="col-12 size-one" required>
+                <label for="password" class="mb-1 px-0 col-12 size-one">Password</label>
+                <input style="padding: 10px !important;" type="password" name="password" id="password" class="col-12 size-one" required>
+                <input type="hidden" name="action" value="login">
+                {% csrf_token %}
+                <input type="submit" value="LOG IN" class="col-12 size-one mt-2 tirtiary-outline-btn">
+                <a href="{% url 'account:forgot_password' %}" class="web-link-two px-0 size-one col-12 mt-2">Lost your password?</a>
+            </form>
+        </div>
+        <div class="col-12 d-lg-none row align-items-center justify-content-center">
+            <span class="line col-5 px-0"></span><span class="col-1 px-0 text-center">OR</span><span class="line px-0 col-5"></span>
+        </div>
+        <div class="col-lg-6 col-12 px-5">
+            <h1 class="weight-five mb-4 weight-six text-center">Register</h1>
+            <p class="text-center mb-4 size-one">Registering for this site allows you to access your order status and history. Just fill in the fields below, and we’ll get a new account set up for you in no time. We will only ask you for information necessary to make the purchase process faster and easier.</p>
+            <div class="text-center"><button class="switch size-one tirtiary-btn" data-btn="register" style="width: 120px;">REGISTER</button></div>
+        </div>
+    </div>
+    <div class="row justify-content-between pt-5 mt-3 hidden register-window">
+        {% if action %}
+        {% if messages %}
+        <div class="col-12 row mb-3 px-2">
+            {% for message in messages %}
+            <div class="alert col-10 d-flex align-items-center {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %} mx-auto size-one" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+        <div class="col-lg-6 col-12 px-sm-5 px-2 right-border">
+            <h1 style="display: flex;align-items: center;" class="weight-five mb-5 weight-six">
+                <i style="margin-right: 3px;" class="icon-user"></i> Register
+            </h1>
+            <form method="POST" class="row justify-content-between contact-form mb-5">
+                <label for="username" class="mb-1 px-0 col-12 size-one">Username</label>
+                {{ form.username }}
+                <label for="email" class="mb-1 px-0 col-12 size-one">Email</label>
+                {{ form.email }}
+                <label for="make-password" class="mb-1 px-0 col-12 size-one">Password</label>
+                {{ form.password }}
+                {% for field in form %}
+                {{ field.errors }}
+                {% endfor %}
+                {% csrf_token %}
+                <input type="hidden" name="action" value="register">
+                <p class="px-0 size-one col-12 mt-3">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="{% url 'store:privacy_policy' %}" class="web-link-two size-one weight-three">privacy policy.</a></p>
+                <input type="submit" value="REGISTER" class="col-12 size-one mt-2 tirtiary-outline-btn">
+            </form>
+        </div>
+        <div class="col-12 d-lg-none row align-items-center justify-content-center">
+            <span class="line col-5 px-0"></span><span class="col-1 px-0 text-center">OR</span><span class="line px-0 col-5"></span>
+        </div>
+        <div class="col-lg-6 col-12 px-5">
+            <h1 class="weight-five mb-4 weight-six text-center">Login</h1>
+            <p class="text-center mb-4 size-one">Login here by filling you're username and password to enter to the site. Site login will simplify the purchase process and allows you to manage your personal account.</p>
+            <div class="text-center"><button class="switch size-one tirtiary-btn" style="width: 120px;" data-btn="login">LOGIN</button></div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<script src="{% static 'js/account.js' %}"></script>
+<script>
+    var action = "{{ action }}"
+    console.log(action);
+    if (action == 'register'){
+    $('.register-window').removeClass('hidden')
+    $('.login-window').addClass('hidden')
+}
+</script>
+{% endblock %}

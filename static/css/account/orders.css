@@ -1,0 +1,20 @@
+.dialogue-box{
+    color: #3c763d;
+    border: 2px solid #459647;
+    height: fit-content;
+}
+.dialogue-box>i{
+    color: #459647;
+    font-size: 16px;
+}
+th,td{
+    padding: 15px 5px;
+    text-align: center;
+}
+th{
+    border-bottom: 2px solid #EFEFEF;
+}
+td{
+    background-color: #f9f9f9;
+    font-size: 14px;
+}

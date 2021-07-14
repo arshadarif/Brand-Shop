@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Edit Address | Brand Shop</title>
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+<link rel="stylesheet" href="{% static 'css/account/edit_address.css' %}">
+{% endblock %}
+{% block content %}
+<div class="primary-font banner mb-3">
+    <h1 class="text-center p-0">MY ACCOUNT</h1>
+    <div class="size-one text-center p-0">
+        <a href="{% url 'store:index' %}" class="web-link"><i class="fas fa-home"></i> Home</a> / My Account
+    </div>
+</div>
+<div class="container-fluid px-sm-5 px-2 py-sm-5 py-1 mb-4 primary-font">
+    <div class="row">
+        <div class="col-lg-4 col-12 px-0 mb-lg-0 mb-4">
+            <ul class="dash-ul px-0 px-lg-3">
+                <li class="text-center dash-head weight-four">MY ACCOUNT</li>
+                <a href="{% url 'account:account' %}" class="d-block size-four web-link-two"><li>DASHBOARD</li></a>
+                <a href="{% url 'account:orders' %}" class="d-block size-four web-link-two"><li>ORDERS</li></a>
+                <a href="{% url 'account:address' %}" class="d-block active size-four web-link-two"><li>ADDRESSES</li></a>
+                <a href="{% url 'account:ac_detail' %}" class="d-block size-four web-link-two"><li>ACCOUNT DETAILS</li></a>
+                <a href="{% url 'store:wishlist' %}" class="d-block size-four web-link-two"><li>WISHLIST</li></a>
+                <a href="{% url 'account:logout' %}" class="d-block size-four web-link-two"><li>LOGOUT</li></a>
+            </ul>
+        </div>
+        <div class="col-lg-8 col-12 row px-lg-4 px-0 justify-content-center" style="color: #000;">
+            <h4 class="mb-4 text-start px-0 col-12">Shipping address</h4>
+            <form method="POST" class="row justify-content-between contact-form">
+                <label class="mb-1 px-0" for="fname">First name</label>
+                <label class="mb-1 px-0" for="lname">Last name</label>
+                {{ form.first_name }}
+                {{ form.last_name }}
+                <label class="mb-1 px-0 col-12">State</label>
+                {{ form.state }}
+                <label class="mb-1 px-0 col-12">Street address</label>
+                {{ form.street1 }}
+                {{ form.street2 }}
+                <label class="mb-1 px-0 col-12">Town / City</label>
+                {{ form.city }}
+                <label class="mb-1 px-0 col-12">Postcode</label>
+                {{ form.post_code }}
+                <label class="mb-1 px-0 col-12">Phone</label>
+                {{ form.phone }}
+                <label class="mb-1 px-0 col-12">Email address</label>
+                {{ form.email }}
+                {% csrf_token %}
+                {{ form.errors }}
+                <input type="submit" value="SAVE CHANGES" class="fourth-btn size-one col-md-2 col-sm-3 col-5">
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+    
+    let first_name = $('input[name="first_name"]')
+    let last_name = $('input[name="last_name"]')
+    let state = $('select[name="state"]')
+    let street1 = $('input[name="street1"]')
+    let street2 = $('input[name="street2"]')
+    let city = $('input[name="city"]')
+    let post_code = $('input[name="post_code"]')
+    let phone = $('input[name="phone"]')
+    let email = $('input[name="email"]')
+
+    $(state).addClass('mb-1 px-2 col-12 size-one')
+    $(street1).addClass('mb-1 px-2 col-12 size-one')
+    $(street2).addClass('mb-1 px-2 col-12 size-one')
+    $(city).addClass('mb-1 px-2 col-12 size-one')
+    $(post_code).addClass('mb-1 px-2 col-12 size-one')
+    $(phone).addClass('mb-1 px-2 col-12 size-one')
+    $(email).addClass('mb-1 px-2 col-12 size-one')
+
+    let address = '{% if address %}{{ address }}{% endif %}'
+    console.log(address);
+    if (Boolean(address) == true){
+        $(first_name).val('{{address.first_name}}')
+        $(last_name).val('{{address.last_name}}')
+        $(state).find("option[value={{ address.state }}]").attr('selected','selected')
+        $(city).val('{{address.city}}')
+        $(post_code).val('{{address.post_code}}')
+        $(phone).val('{{address.phone}}')
+        if ('{{address.street1}}' != 'None'){
+            $(street1).val('{{ address.street1 }}')
+        }
+        if ('{{address.street2}}' != 'None'){
+            $(street2).val('{{ address.street2 }}')
+        }
+        if ('{{address.email}}' != 'None'){
+            $(street2).val('{{ address.email }}')
+        }
+    }
+
+</script>
+{% endblock %}
