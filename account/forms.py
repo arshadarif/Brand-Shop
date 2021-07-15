@@ -63,6 +63,9 @@ class AcDetailsForm(forms.ModelForm):
             elif new_pass != confirm_pass:
                 print("password mismatch")
                 raise forms.ValidationError('Password Mismatch')
+        elif not new_pass and confirm_pass:
+            raise forms.ValidationError('Password Mismatch')
+
 
         return self.cleaned_data
 

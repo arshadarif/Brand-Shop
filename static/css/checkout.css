@@ -4,9 +4,6 @@ label[for="fname"],label[for="lname"]{
 .contact-form input#fname,.contact-form input#lname{
     width: 48% !important;
 }
-label[for="terms"]{
-    margin-left: 10px !important;
-}
 label,input,select,option{
     font-size: 14px;
 }

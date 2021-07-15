@@ -98,7 +98,7 @@ button.tirtiary-btn{
         padding: 25px 10px !important;
         text-align: left !important;
     }
-    .cart-phone-table td:nth-child(2n+1){
+    .cart-phone-table td:nth-child(2n){
         padding: 25px 10px !important;
         text-align: right !important;
     }
@@ -127,7 +127,7 @@ button.tirtiary-btn{
         padding: 25px 10px !important;
         text-align: left !important;
     }
-    .cart-phone-table td:nth-child(2n+1){
+    .cart-phone-table td:nth-child(2n){
         padding: 25px 10px !important;
         text-align: right !important;
     }

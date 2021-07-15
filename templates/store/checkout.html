@@ -88,13 +88,14 @@
                     <label for="cod">Cash on delivery</label>
                 </div>
             </div>
-            <input type="checkbox" name="terms" id="terms" class="mb-4" required/>
-            <label for="terms"
-                >I have read and agree to the website
-                <a href="#" class="web-link-two weight-five"
-                    >terms and conditions</a
-                ></label
-            >
+            <div class="row align-items-start">
+                
+                <label for="terms" class="col-11 col-sm-10 px-0 mx-0 mb-4 ml-0 ml-sm-2">
+                    <input type="checkbox" name="terms" id="terms" class="mb-4 d-inline-block" required/> I have read and agree to the website
+                    <a href="#" class="web-link-two weight-five"
+                        >terms and conditions</a
+                ></label>
+            </div>
             {% csrf_token %}
             <input
                 type="submit"
