@@ -96,6 +96,7 @@ a.spotlight-btn{
     overflow-x: hidden;
     flex-wrap: nowrap;
     white-space: nowrap;
+    scroll-behavior: smooth;
 }
 #products + .row > .col-md-3 {
     display: inline-block;
